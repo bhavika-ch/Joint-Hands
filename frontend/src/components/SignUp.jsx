@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,11 +20,18 @@ import { currentContext } from "@/context/Current";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const { serverUrl } = useContext(AuthDataContext);
   const { getCurrentUser, user } = useContext(currentContext);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState(location.pathname === "/register" ? "signup" : "signin");
+
+  useEffect(() => {
+    setActiveTab(location.pathname === "/register" ? "signup" : "signin");
+  }, [location.pathname]);
+
   const [signUpData, setSignUpData] = useState({
     fullName: "",
     email: "",
@@ -79,6 +86,7 @@ const SignUp = () => {
       });
 
       navigate("/login");
+      setActiveTab("signin");
 
       console.log(res);
 
@@ -148,7 +156,7 @@ const SignUp = () => {
         </CardHeader>
 
         <CardContent>
-          <Tabs defaultValue="signin" className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="signin">Sign In</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>

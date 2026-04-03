@@ -20,6 +20,7 @@ import Coursesc1 from "./components/Courses";
 import CourseDetail from "./components/CourseDetail";
 import CourseLearn from "./components/CourseLearn";
 import Mentor from "./pages/Mentor";
+import { Toaster } from "@/components/ui/toaster";
 
 const App = () => {
   return (
@@ -58,6 +59,7 @@ const App = () => {
 
         <Route path="/mentor" element={<Mentor />}/>
       </Routes>
+      <Toaster />
     </div>
   );
 };
