@@ -11,7 +11,7 @@ const CurrentProvider = ({ children }) => {
 
   const getCurrentUser = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/current", {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/v1/current`, {
         withCredentials: true,
       });
 
@@ -32,7 +32,7 @@ const CurrentProvider = ({ children }) => {
   // ⭐ FIXED: Add logout function
   const logout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/v1/logout", {
+      await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/v1/logout`, {
         withCredentials: true,
       });
 

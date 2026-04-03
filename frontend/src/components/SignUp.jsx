@@ -69,7 +69,7 @@ const SignUp = () => {
 
       console.log(signUpData);
 
-      const res = await axios.post("http://localhost:3000/api/v1/register", {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/register`, {
         fullName: signUpData.fullName,
         email: signUpData.email,
         password: signUpData.password,
@@ -101,7 +101,7 @@ const SignUp = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/login",
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/login`,
         {
           email: signInData.email,
           password: signInData.password,

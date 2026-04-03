@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: joint-hands-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: "4000"
+      - key: MONGODB_URL
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: SECRETKEY
+        sync: false
+      - key: GROK_API_KEY
+        sync: false

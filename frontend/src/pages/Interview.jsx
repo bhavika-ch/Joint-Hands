@@ -66,7 +66,7 @@ const Interview = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/api/v5/interview/generate", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v5/interview/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ jobRole }),
@@ -110,7 +110,7 @@ const Interview = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/api/v5/interview/feedback", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v5/interview/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: currentQuestion, userAnswer }),

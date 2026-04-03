@@ -20,10 +20,10 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
-//  CORS for development
+//  CORS Configuration
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   })
 );
@@ -34,9 +34,7 @@ database();
 
 //  Routes
 app.use("/api/v1", UserProfile);
-
 app.use("/api/v2",profileRouter)
-
 app.use("/api/v3",GenerativeRouter)
 
 app.use("/api/v4",profileSettingRouter)
@@ -45,7 +43,7 @@ app.use("/api/v5",InterviewRouter)
 
 app.use("/api/v6",ChatbotRouter)
 
-// ✅ Global error handler (optional, but good practice)
+// Global error handler (optional, but good practice)
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({

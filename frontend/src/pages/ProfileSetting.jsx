@@ -52,12 +52,12 @@ const ProfileSettings = () => {
   const [experienceList, setExperienceList] = useState([]);
   const [hasDisability, setHasDisability] = useState("No");
 
-  // ✅ Fetch Profile
+  //  Fetch Profile
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/v4/profile/user/${userId}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/v4/profile/user/${userId}`
         );
         const data = await res.json();
         if (data.success) {
@@ -80,8 +80,8 @@ const ProfileSettings = () => {
     setSaving(true);
     try {
       const url = profile._id
-        ? `http://localhost:3000/api/v4/profile/${profile._id}`
-        : `http://localhost:3000/api/v4/prof`;
+        ? `${import.meta.env.VITE_API_BASE_URL}/api/v4/profile/${profile._id}`
+        : `${import.meta.env.VITE_API_BASE_URL}/api/v4/prof`;
 
       const method = profile._id ? "PUT" : "POST";
 
