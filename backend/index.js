@@ -15,11 +15,12 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Middleware
+
+//  Middleware
 app.use(cookieParser());
 app.use(express.json());
 
-// ✅ CORS for development
+//  CORS for development
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -28,10 +29,10 @@ app.use(
 );
 
 
-// ✅ Connect to database
+//  Connect to database
 database();
 
-// ✅ Routes
+//  Routes
 app.use("/api/v1", UserProfile);
 
 app.use("/api/v2",profileRouter)
