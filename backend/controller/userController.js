@@ -96,16 +96,16 @@ export const login = async (req, res) => {
       expiresIn: "1d",
     });
 
+    const isProduction = process.env.NODE_ENV === "production";
     return res
       .status(200)
       .cookie("token", token, {
-  httpOnly: true,
-  secure: false, // ✅ keep false for localhost (not https)
-  sameSite: "Lax", // ✅ works on localhost
-  maxAge: 24 * 60 * 60 * 1000,
-})
-
-      .json({ message: `Welcome back ${user.fullName}`, userData: user,token });
+        httpOnly: true,
+        secure: isProduction, // must be true for cross-origin (Render)
+        sameSite: isProduction ? "none" : "lax", // must be 'none' for cross-origin
+        maxAge: 24 * 60 * 60 * 1000,
+      })
+      .json({ message: `Welcome back ${user.fullName}`, userData: user, token });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: error.message });
@@ -114,13 +114,14 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
+    const isProduction = process.env.NODE_ENV === "production";
     return res
       .status(200)
       .cookie("token", "", {
         maxAge: 0,
         httpOnly: true,
-        secure: false, // matches login
-        sameSite: "Lax", // matches login
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
       })
       .json({
         message: "Logged out successfully",
